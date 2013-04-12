@@ -11,7 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130401081152) do
+ActiveRecord::Schema.define(version: 20130411034816) do
+
+  create_table "clients", force: true do |t|
+    t.string   "name",                         null: false
+    t.text     "description"
+    t.integer  "user_id",                      null: false
+    t.integer  "logo_id"
+    t.string   "public_token",                 null: false
+    t.boolean  "banned",       default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "clients", ["public_token"], name: "index_clients_on_public_token"
+  add_index "clients", ["user_id"], name: "index_clients_on_user_id"
 
   create_table "deviations", force: true do |t|
     t.integer  "artist_id",                    null: false
@@ -67,5 +81,19 @@ ActiveRecord::Schema.define(version: 20130401081152) do
   add_index "votes", ["emote_id"], name: "index_votes_on_emote_id"
   add_index "votes", ["user_id", "emote_id"], name: "index_votes_on_user_id_and_emote_id"
   add_index "votes", ["user_id"], name: "index_votes_on_user_id"
+
+  create_table "voting_tokens", force: true do |t|
+    t.integer  "user_id",                    null: false
+    t.integer  "client_id"
+    t.string   "token",                      null: false
+    t.boolean  "revoked",    default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "voting_tokens", ["client_id"], name: "index_voting_tokens_on_client_id"
+  add_index "voting_tokens", ["token"], name: "index_voting_tokens_on_token"
+  add_index "voting_tokens", ["user_id", "client_id"], name: "index_voting_tokens_on_user_id_and_client_id"
+  add_index "voting_tokens", ["user_id"], name: "index_voting_tokens_on_user_id"
 
 end
