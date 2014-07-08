@@ -1,41 +1,30 @@
 source 'https://rubygems.org'
+ruby '2.1.2'
 
-gem 'rails', '4.0.0.beta1'
+gem 'annotate', require: false
+
+gem 'rails', '~> 4.0'
+gem 'unicorn'
+gem 'pg'
+gem 'redis'
+gem 'redis-rails'
+
+## Speedups
+gem 'oj'
+gem 'fast_blank'
+gem 'therubyracer'
 
 group :assets do
-  # Compile SASS, and too CoffeeScript I guess.
-  # Fuck CoffeeScript.
-  gem 'sass-rails',   '~> 4.0.0.beta1'
-  gem 'coffee-rails', '~> 4.0.0.beta1'
-
-  gem 'therubyracer', platforms: :ruby
-
-  # Compress JS like a baws
-  gem 'uglifier', '>= 1.0.3'
+  gem 'less-rails'
+  gem 'autoprefixer-rails', '~> 2.0'
+  gem 'uglifier'
 end
 
 group :development do
-  # Development database
-  gem 'sqlite3'
-
-  # App server
-  gem 'thin'
-
-  # Deployment
-  gem 'capistrano'
+  gem 'foreman'
 end
 
-group :production do
-  # Production database
-  gem 'mysql'
+gem 'haml', '~> 4.0'
+gem 'haml-rails'
 
-  # App server
-  gem 'unicorn'
-end
-
-gem 'jquery-rails'
-
-gem 'jbuilder'
-
-# To use debugger
-# gem 'debugger'
+gem 'cancan'
